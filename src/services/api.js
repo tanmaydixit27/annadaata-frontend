@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://annadaata-backend-xtzg.onrender.com', 
+  baseURL: 'annadaata-backend-xtzg.onrender.com', 
   headers: {
     'Content-Type': 'application/json',
   },
