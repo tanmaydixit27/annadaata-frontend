@@ -24,29 +24,29 @@ export const registerUser = async (userData) => {
     const response = await api.post('/auth/register', userData);
     const { token } = response.data;
 
-
     setAuthToken(token);
     return response.data;
   } catch (error) {
-    console.error('Error registering user:', error.response?.data?.message || error.message);
-    throw error.response?.data || { message: 'Server error' };
+    const errorMessage = error.response?.data?.message || error.message;
+    console.error('Error registering user:', errorMessage);
+    throw new Error(errorMessage || 'Server error');
   }
 };
 
-// Log in a user
 export const loginUser = async (credentials) => {
   try {
     const response = await api.post('/auth/login', credentials);
     const { token } = response.data;
 
-    // Set token in local storage and Axios headers
     setAuthToken(token);
     return response.data;
   } catch (error) {
-    console.error('Error logging in:', error.response?.data?.message || error.message);
-    throw error.response?.data || { message: 'Server error' };
+    const errorMessage = error.response?.data?.message || error.message;
+    console.error('Error logging in:', errorMessage);
+    throw new Error(errorMessage || 'Server error');
   }
 };
+
 
 // Log out a user (clears token)
 export const logoutUser = () => {
