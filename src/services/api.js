@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://annadaata-backend-xtzg.onrender.com', 
+  baseURL: 'https://annadaata-backend-xtzg.onrender.com/api', 
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
 
 
 export const setAuthToken = (token) => {
