@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/grains';
+const API_URL = 'https://annadaata-backend-xtzg.onrender.com/api/grains';
 
 export const createGrain = async (data, token) => {
   return await axios.post(API_URL, data, {

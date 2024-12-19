@@ -11,7 +11,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/cart');
+        const response = await axios.get('https://annadaata-backend-xtzg.onrender.com/api/cart');
         setCartItems(response.data);
       } catch (error) {
         console.error("Error fetching cart items:", error);
@@ -23,7 +23,7 @@ const Cart = () => {
   // Function to handle updating item quantity
   const updateQuantity = async (id, quantity) => {
     try {
-      const updatedItem = await axios.put(`http://localhost:5000/api/cart/${id}`, { quantity });
+      const updatedItem = await axios.put(`https://annadaata-backend-xtzg.onrender.com/api/cart/${id}`, { quantity });
       setCartItems(cartItems.map(item => item._id === id ? updatedItem.data : item));
     } catch (error) {
       console.error("Error updating quantity:", error);
@@ -33,7 +33,7 @@ const Cart = () => {
   // Function to handle removing an item from the cart
   const removeFromCart = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/cart/${id}`);
+      await axios.delete(`https://annadaata-backend-xtzg.onrender.com/api/cart/${id}`);
       setCartItems(cartItems.filter(item => item._id !== id));
     } catch (error) {
       console.error("Error removing item from cart:", error);
