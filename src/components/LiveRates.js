@@ -27,7 +27,7 @@ const LiveRates = () => {
 
   const addToCart = async(grain) => {
     try{
-        await axios.post('http://localhost:5000/api/cart',{
+        await axios.post('https://annadaata-backend-xtzg.onrender.com/api/cart',{
             ...grain,
             quatity: 1,
         });
