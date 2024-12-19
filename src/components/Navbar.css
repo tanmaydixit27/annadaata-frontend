@@ -1,4 +1,3 @@
-/* General navbar styling */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -10,12 +9,18 @@
   top: 0;
   z-index: 100;
 }
+.mobile-menu-icon {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
 
 /* Brand logo and name container */
 .navbar-left {
   display: flex;
   align-items: center; /* Ensures vertical alignment of logo and text */
-  padding-right: 300px; 
+  padding-right: 100px; 
 }
 
 .logo-navbar {
@@ -158,12 +163,12 @@
   color: #27ae60;
 }
 
+
 /* Responsive styling */
 @media (max-width: 768px) {
-  .navbar-menu {
-    display: none; /* Hide menu on mobile, can be replaced with a hamburger menu */
+  .mobile-menu-icon {
+    display: block;
   }
-  
   .navbar {
     flex-direction: column;
     align-items: flex-start;
@@ -176,4 +181,13 @@
   .login-link {
     font-size: 0.9rem;
   }
+}
+
+.hidden-navbar {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+.hidden {
+  transform: translateY(-100%); /* Slide navbar out of view */
+  transition: transform 0.3s ease-in-out;
 }
