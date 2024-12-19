@@ -19,7 +19,7 @@ const BookFertilizer = () => {
 
   const addToCart = async (fertilizer) => {
     try {
-      await axios.post('http://localhost:5000/api/cart', {
+      await axios.post('https://annadaata-backend-xtzg.onrender.com/api/cart', {
         ...fertilizer,
         quantity: 1,
       });
