@@ -8,7 +8,13 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background-color 0.3s ease-in-out; /* Smooth transition for color changes */
 }
+
+.navbar:hover {
+  background-color: #fdf5c2; /* Slightly darker shade on hover */
+}
+
 .mobile-menu-icon {
   display: none;
   font-size: 1.5rem;
@@ -20,12 +26,12 @@
 .navbar-left {
   display: flex;
   align-items: center; /* Ensures vertical alignment of logo and text */
-  padding-right: 100px; 
+  padding-right: 100px;
 }
 
 .logo-navbar {
   width: 40px; /* Adjust size of the logo */
-  height: auto; 
+  height: auto;
   margin-top: 10px;
   margin-right: 10px; /* Space between logo and brand name */
   object-fit: contain; /* Ensures logo maintains aspect ratio */
@@ -34,18 +40,18 @@
 /* Brand name (center) styling */
 .brand-name {
   font-family: 'Inter', sans-serif; /* Font applied here */
-  font-weight: 700;                 /* Adjust the weight */
-  font-size: 2.5rem;                /* Font size - large for emphasis */
-  color: #333;                      /* Font color */
-  letter-spacing: 2px;              /* Space between letters for a cleaner look */
-  text-transform: uppercase;        /* Make the brand name uppercase */
-  position: relative;               /* For positioning pseudo-elements */
-  transition: all 0.3s ease;   
+  font-weight: 700; /* Adjust the weight */
+  font-size: 2.5rem; /* Font size - large for emphasis */
+  color: #333; /* Font color */
+  letter-spacing: 2px; /* Space between letters for a cleaner look */
+  text-transform: uppercase; /* Make the brand name uppercase */
+  position: relative; /* For positioning pseudo-elements */
+  transition: all 0.3s ease;
 }
 
 .brand-name:hover {
-  color: #27ae60;                   /* Change color to a green shade on hover */
-  letter-spacing: 5px;               /* Increase letter spacing for effect */
+  color: #27ae60; /* Change color to a green shade on hover */
+  letter-spacing: 5px; /* Increase letter spacing for effect */
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
 }
 
@@ -55,13 +61,13 @@
   width: 0;
   height: 2px;
   background-color: #27ae60; /* Green underline */
-  bottom: -5px;               /* Position it slightly below the text */
+  bottom: -5px; /* Position it slightly below the text */
   left: 0;
   transition: width 0.3s ease; /* Smooth transition for underline */
 }
 
 .brand-name:hover::after {
-  width: 100%;                 /* Full-width underline on hover */
+  width: 100%; /* Full-width underline on hover */
 }
 
 /* Login button styling */
@@ -163,23 +169,51 @@
   color: #27ae60;
 }
 
-
 /* Responsive styling */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    background: #fffacd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    max-height: 80vh; /* Constrain height for long lists */
+    overflow-y: auto; /* Enable vertical scrolling */
+    position: absolute; /* Ensure it doesn't push content below */
+    top: 100%; /* Position directly below the navbar */
+    left: 0;
+    z-index: 99; /* Ensure it's above other elements */
+  }
+
+  .navbar-menu.open {
+    display: flex;
+  }
+
   .mobile-menu-icon {
     display: block;
   }
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+}
 
+
+@media (max-width: 768px) {
   .brand-name {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
-  .login-link {
+  .login-link,
+  .nav-link {
     font-size: 0.9rem;
+  }
+
+  .logo-navbar {
+    width: 30px;
   }
 }
 
@@ -187,6 +221,7 @@
   transform: translateY(-100%);
   transition: transform 0.3s ease-in-out;
 }
+
 .hidden {
   transform: translateY(-100%); /* Slide navbar out of view */
   transition: transform 0.3s ease-in-out;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   FaBars,
   FaTimes,
@@ -11,43 +11,46 @@ import {
   FaShoppingCart,
   FaCreditCard,
   FaEdit,
-} from 'react-icons/fa';
-import { Menu, MenuItem, IconButton } from '@mui/material';
-import { useNavigate, Link } from 'react-router-dom';
-import './Navbar.css';
-import anndaata from '../assets/anndaata.jpg';
+} from "react-icons/fa";
+import { Menu, MenuItem, IconButton } from "@mui/material";
+import { useNavigate, Link } from "react-router-dom";
+import "./Navbar.css";
+import anndaata from "../assets/anndaata.jpg";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
-  const lastScrollY = useRef(0); // Persist value across renders
+  const lastScrollY = useRef(0);
+  const scrollTimeout = useRef(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     setIsLoggedIn(!!token);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      if (scrollTimeout.current) return;
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-        setShowNavbar(false); // Hide navbar on scroll down
-      } else {
-        setShowNavbar(true); // Show navbar on scroll up
-      }
-
-      lastScrollY.current = currentScrollY; // Update ref value
+      scrollTimeout.current = setTimeout(() => {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+          setShowNavbar(false);
+        } else {
+          setShowNavbar(true);
+        }
+        lastScrollY.current = currentScrollY;
+        scrollTimeout.current = null;
+      }, 100); // Throttle to update every 100ms
     };
 
-    window.addEventListener('scroll', handleScroll);
-
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -60,18 +63,18 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem("authToken");
     setIsLoggedIn(false);
     handleMenuClose();
-    navigate('/'); // Redirect to sign-in page
+    navigate("/");
   };
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
   return (
-    <nav className={`navbar ${showNavbar ? '' : 'hidden'}`}>
+    <nav className={`navbar ${showNavbar ? "" : "hidden"}`}>
       <div className="navbar-left">
         <img src={anndaata} alt="Logo" className="logo-navbar" />
         <h1 className="brand-name">Anndaata</h1>
@@ -81,40 +84,46 @@ const Navbar = () => {
         {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
       </div>
 
-      <ul className={`navbar-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+      <ul
+        className={`navbar-menu ${isMobileMenuOpen ? "open" : ""}`}
+        style={{
+          maxHeight: "80vh", // Set maximum height for dropdown menu
+          overflowY: "auto", // Enable scrolling for overflowing content
+        }}
+      >
         <li>
           <Link to="/" className="nav-link">
-            <FaHome style={{ marginRight: '8px' }} /> Home
+            <FaHome style={{ marginRight: "8px" }} /> Home
           </Link>
         </li>
         <li>
           <Link to="/sell" className="nav-link">
-            <FaMoneyBillWave style={{ marginRight: '8px' }} /> Sell Your Grains
+            <FaMoneyBillWave style={{ marginRight: "8px" }} /> Sell Your Grains
           </Link>
         </li>
         <li>
           <Link to="/Liverates" className="nav-link">
-            <FaCarrot style={{ marginRight: '8px' }} /> Live Rates
+            <FaCarrot style={{ marginRight: "8px" }} /> Live Rates
           </Link>
         </li>
         <li>
           <Link to="/BookFertilizer" className="nav-link">
-            <FaCalendarAlt style={{ marginRight: '8px' }} /> Book Fertilizers
+            <FaCalendarAlt style={{ marginRight: "8px" }} /> Book Fertilizers
           </Link>
         </li>
         <li>
           <Link to="/Events" className="nav-link">
-            <FaCalendarAlt style={{ marginRight: '8px' }} /> Events
+            <FaCalendarAlt style={{ marginRight: "8px" }} /> Events
           </Link>
         </li>
         <li>
           <Link to="/Aboutus" className="nav-link">
-            <FaInfoCircle style={{ marginRight: '8px' }} /> About
+            <FaInfoCircle style={{ marginRight: "8px" }} /> About
           </Link>
         </li>
         <li>
           <Link to="/cart" className="nav-link">
-            <FaShoppingCart style={{ marginRight: '8px' }} /> Cart
+            <FaShoppingCart style={{ marginRight: "8px" }} /> Cart
           </Link>
         </li>
 
@@ -122,14 +131,19 @@ const Navbar = () => {
           {isLoggedIn ? (
             <>
               <IconButton onClick={handleMenuClick} className="user-menu-btn">
-                <FaUserAlt style={{ marginRight: '8px' }} /> My Profile
+                <FaUserAlt style={{ marginRight: "8px" }} /> My Profile
               </IconButton>
-              <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
                 <MenuItem onClick={handleMenuClose} className="menu-item">
-                  <FaEdit style={{ marginRight: '8px' }} /> <Link to="/EditProfile">Edit Profile</Link>
+                  <FaEdit style={{ marginRight: "8px" }} />{" "}
+                  <Link to="/EditProfile">Edit Profile</Link>
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose} className="menu-item">
-                  <FaCreditCard style={{ marginRight: '8px' }} />
+                  <FaCreditCard style={{ marginRight: "8px" }} />
                   <Link to="/payment">Payment</Link>
                 </MenuItem>
                 <MenuItem onClick={handleLogout} className="menu-item">
@@ -139,7 +153,7 @@ const Navbar = () => {
             </>
           ) : (
             <Link to="/signin" className="nav-link">
-              <FaUserAlt style={{ marginRight: '8px' }} /> Log In
+              <FaUserAlt style={{ marginRight: "8px" }} /> Log In
             </Link>
           )}
         </li>
