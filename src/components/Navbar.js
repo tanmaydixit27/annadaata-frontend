@@ -87,8 +87,9 @@ const Navbar = () => {
       <ul
         className={`navbar-menu ${isMobileMenuOpen ? "open" : ""}`}
         style={{
-          maxHeight: "80vh", // Set maximum height for dropdown menu
-          overflowY: "auto", // Enable scrolling for overflowing content
+          maxHeight: "calc(100vh - 4rem)", // Adjust max height for visibility
+          overflowY: "auto", // Enable vertical scrolling
+          paddingBottom: "1rem",
         }}
       >
         <li>

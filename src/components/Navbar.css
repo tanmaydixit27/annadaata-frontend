@@ -170,6 +170,26 @@
 }
 
 /* Responsive styling */
+
+@media (min-width: 1025px) {
+  .navbar-menu {
+    display: flex; /* Ensure the menu is displayed as a flex container */
+    flex-direction: row; /* Horizontal layout */
+    gap: 1.5rem; /* Maintain spacing between menu items */
+    max-height: none; /* Remove any height constraints */
+    overflow: hidden; /* Disable any scrolling */
+    width: auto; /* Allow full-width usage */
+  }
+}
+
+/* Check parent container styling (Navbar itself) */
+@media (min-width: 1025px) {
+  .navbar {
+    overflow: hidden; /* Disable any inherited scrollbars from the navbar */
+  }
+}
+
+
 @media (max-width: 1024px) {
   .navbar {
     flex-wrap: wrap;
@@ -184,8 +204,8 @@
     background: #fffacd;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    max-height: 80vh; /* Constrain height for long lists */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 80vh; /* Constrain height for mobile view */
+    overflow-y: auto; /* Enable vertical scrolling for long lists */
     position: absolute; /* Ensure it doesn't push content below */
     top: 100%; /* Position directly below the navbar */
     left: 0;
@@ -216,6 +236,9 @@
     width: 30px;
   }
 }
+
+
+
 
 .hidden-navbar {
   transform: translateY(-100%);
